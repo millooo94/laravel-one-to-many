@@ -2,36 +2,43 @@
 @section('content')
 <div class="container">
     @if (session('success_delete'))
-    <div class="alert alert-success" role="alert">
-        The category {{ session('success_delete')->name }} correctly deleted
-    </div>
+        <div class="alert alert-warning" role="alert">
+            La categoria "{{ session('success_delete')->name }}" e' stata eliminata correttamente
+        </div>
     @endif
-    <div class="row">
-        @foreach ($categories as $category)
-        <div class="col-12">
-            <div class="card index mb-3 m-auto" style="width: 60%;">
-                <div class="row g-0">
-                  <div class="col-md-8 d-flex align-items-center">
-                    <div class="card-body">
-                      <h3>{{$category->id}}</h3>
-                      <h4>{{$category->slug}}</h4>
-                      <h5 class="card-title">{{$category->name}}</h5>
-                      <div class="btn-container d-flex justify-content-center align-items-center">
-                        <a class="btn btn-info" href="{{route('admin.categories.show', ['category' => $category])}}">INFO</a>
-                        <a class="btn btn-warning m-2" href="{{route('admin.categories.edit', ['category' => $category])}}">EDIT</a>
+
+    <h1>Categorie</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Slug</th>
+                <th scope="col">Nome</th>
+                <th class="text-center" scope="col">Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($categories as $category)
+                <tr>
+                    <th scope="row">{{ $category->id }}</th>
+                    <td>{{ $category->slug }}</td>
+                    <td>{{ $category->name }}</td>
+
+                    <td class="d-flex justify-content-center align-items-center gap-4">
+                        <a href="{{ route('admin.categories.show', ['category' => $category]) }}" class="btn btn-primary">SHOW</a>
+                        <a href="{{ route('admin.categories.edit', ['category' => $category]) }}" class="btn btn-warning">EDIT</a>
                         <form action="{{ route('admin.categories.destroy', ['category' => $category]) }}" method="post">
                             @method('DELETE')
                             @csrf
-                            <button class="btn btn-danger">DELETE</button>
+                            <button class="btn btn-danger btn-delete-me">DELETE</button>
                         </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-        </div>
-        @endforeach
-    </div>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
     {{ $categories->links() }}
 </div>
 @endsection

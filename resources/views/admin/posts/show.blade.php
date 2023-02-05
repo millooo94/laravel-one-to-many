@@ -4,7 +4,7 @@
 <div class="card show-card index mb-3 m-auto" style="width: 70%;">
     <div class="row g-0">
       <div class="col-md-4 d-flex">
-        {{-- <img src="{{$post->image}}" class="img-fluid rounded-start" alt="..."> --}}
+        <img src="{{$post->image}}" class="img-fluid rounded-start" alt="...">
         <img src="{{asset('storage/' . $post->uploaded_img)}}" class="img-fluid rounded-start" alt="...">
       </div>
       <div class="col-md-8 d-flex align-items-center">
@@ -28,3 +28,4 @@
     </div>
   </div>
 @endsection
+
